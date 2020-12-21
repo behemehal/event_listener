@@ -20,6 +20,7 @@ class MaximumListenerOverflow implements Exception {
   String message() =>
       'Failed to add listener, \'maxListeners\' exceeded, change maxListeners to 0 for infinite listeners';
 }
+
 ///This exception occurs when you try to set 'maxListeners' to negative value
 class EventRangeError implements Exception {
   String message() =>

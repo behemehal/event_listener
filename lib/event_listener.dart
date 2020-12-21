@@ -11,7 +11,7 @@ class EventListener {
   };
   int _maxListeners = 10;
 
-  ///Set maximum listeners limit, set 0 for unlimited 
+  ///Set maximum listeners limit, set 0 for unlimited
   set maxListeners(int n) {
     if (n >= 0) {
       _maxListeners = n;
@@ -53,7 +53,6 @@ class EventListener {
 
   ///Get all existent event names
   List<String> get eventNames => _events.keys as List<String>;
-
 
   ///Get all existent listeners of event
   List<void Function(dynamic argument)> listeners(String eventName) {
@@ -114,6 +113,28 @@ class EventListener {
       }
     } else {
       throw EventNotFound();
+    }
+  }
+
+  ///Emits to every listener of event returns null if failed to emit
+  bool? tryEmit(String eventName, dynamic argument) {
+    if (_events[eventName] != null) {
+      if (_events[eventName]!.isNotEmpty) {
+        _events[eventName]!.forEach((listener) {
+          listener.caller(argument);
+          if (listener.type == ListenerTypes.once) {
+            removeEventListener(eventName, listener.caller);
+            try {
+              emit('removeListener', MapEntry(eventName, listener));
+            } catch (_) {}
+          }
+        });
+        return true;
+      } else {
+        return null;
+      }
+    } else {
+      return null;
     }
   }
 }
