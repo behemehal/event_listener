@@ -3,6 +3,7 @@ library event_listener;
 import 'listener.dart';
 import 'exceptions.dart';
 
+/// EventListener class
 class EventListener {
   final Map<String, List<Listener>> _events = {
     'newListener': [],
@@ -10,6 +11,7 @@ class EventListener {
   };
   int _maxListeners = 10;
 
+  ///Set maximum listeners limit, set 0 for unlimited 
   set maxListeners(int n) {
     if (n >= 0) {
       _maxListeners = n;
@@ -20,6 +22,7 @@ class EventListener {
 
   int get maxListeners => _maxListeners;
 
+  //Calls function when event occurs
   void on(String eventName, void Function(dynamic argument) listener) {
     if (_events[eventName] == null) _events[eventName] = [];
     if (_maxListeners == 0 || _events[eventName]!.length < _maxListeners) {
@@ -32,6 +35,7 @@ class EventListener {
     }
   }
 
+  //Calls function once when event occurs
   void once(String eventName, void Function(dynamic argument) listener) {
     if (_events[eventName] == null) _events[eventName] = [];
     if (_maxListeners == 0 || _events[eventName]!.length < _maxListeners) {
@@ -44,9 +48,14 @@ class EventListener {
     }
   }
 
+  ///Get all existent events
   Map<String, List<Listener>> get events => _events;
+
+  ///Get all existent event names
   List<String> get eventNames => _events.keys as List<String>;
 
+
+  ///Get all existent listeners of event
   List<void Function(dynamic argument)> listeners(String eventName) {
     if (_events[eventName] != null) {
       return _events[eventName]!.map((e) => e.caller)
@@ -56,6 +65,7 @@ class EventListener {
     }
   }
 
+  ///Remove all existent listeners of event
   void removeAllListeners(String eventName) {
     _events.entries.forEach((element) {
       try {
@@ -65,6 +75,7 @@ class EventListener {
     _events[eventName] = [];
   }
 
+  ///Removes a listener from event
   void removeEventListener(
       String eventName, void Function(dynamic argument) listener) {
     if (_events[eventName] != null) {
@@ -85,6 +96,7 @@ class EventListener {
     }
   }
 
+  ///Emits to every listener of event
   void emit(String eventName, dynamic argument) {
     if (_events[eventName] != null) {
       if (_events[eventName]!.isNotEmpty) {

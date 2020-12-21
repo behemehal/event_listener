@@ -1,4 +1,6 @@
 # EventListener
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](/LICENSE)
+
 NodeJS like Event Listener library for dart! 
 
 ## Usage
