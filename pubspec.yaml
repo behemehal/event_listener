@@ -1,6 +1,6 @@
 name: event_listener
 description:  A dart package implements NodeJS style event listening functionality
-version: 0.1.1
+version: 0.1.2
 homepage: https://github.com/behemehal/event_listener
 repository: https://github.com/behemehal/event_listener
 
