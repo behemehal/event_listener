@@ -5,3 +5,8 @@
 ## 0.1.1
 
 - Generated docs, added examples
+
+## 0.1.2
+
+- Add tryEmit nullsafe function
+
