@@ -51,24 +51,3 @@ jobs:
           pub-cache: "~/AppData/Local/Pub/Cache"
       - native-build:
           shell: "powershell.exe"
-  build-linux:
-    machine: true
-    steps:
-      - run:
-          name: Install Dart SDK
-          shell: /bin/bash --login -eo pipefail
-          command: |
-            # Setup repo & signing key
-            sudo apt update
-            sudo apt install apt-transport-https
-            sudo sh -c 'wget -qO- https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -'
-            sudo sh -c 'wget -qO- https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list'
-
-            # Update again and install
-            sudo apt update
-            sudo apt install dart
-
-            # Set PATH in profile for downstream commands
-            echo "export PATH=$PATH:/usr/lib/dart/bin" >> $BASH_ENV
-      - dependencies
-      - native-build
