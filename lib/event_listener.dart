@@ -5,7 +5,7 @@ import 'exceptions.dart';
 
 /// EventListener class
 class EventListener {
-  final Map<String, List<Listener>> _events = {
+  Map<String, List<Listener>> _events = {
     'newListener': [],
     'removeListener': []
   };
@@ -27,9 +27,7 @@ class EventListener {
     if (_events[eventName] == null) _events[eventName] = [];
     if (_maxListeners == 0 || _events[eventName]!.length < _maxListeners) {
       _events[eventName]!.add(Listener(ListenerTypes.on, listener));
-      try {
-        emit('newListener', MapEntry(eventName, _events[eventName]));
-      } catch (_) {}
+      tryEmit('newListener', MapEntry(eventName, _events[eventName]));
     } else {
       throw MaximumListenerOverflow();
     }
@@ -40,9 +38,7 @@ class EventListener {
     if (_events[eventName] == null) _events[eventName] = [];
     if (_maxListeners == 0 || _events[eventName]!.length < _maxListeners) {
       _events[eventName]!.add(Listener(ListenerTypes.once, listener));
-      try {
-        emit('newListener', MapEntry(eventName, _events[eventName]));
-      } catch (_) {}
+      tryEmit('newListener', MapEntry(eventName, _events[eventName]));
     } else {
       throw MaximumListenerOverflow();
     }
@@ -67,9 +63,7 @@ class EventListener {
   ///Remove all existent listeners of event
   void removeAllListeners(String eventName) {
     _events.entries.forEach((element) {
-      try {
-        emit('removeListener', element);
-      } catch (_) {}
+      tryEmit('removeListener', element);
     });
     _events[eventName] = [];
   }
@@ -79,14 +73,13 @@ class EventListener {
       String eventName, void Function(dynamic argument) listener) {
     if (_events[eventName] != null) {
       if (_events[eventName]!.map((e) => e.caller).contains(listener)) {
-        try {
-          emit(
-              'removeListener',
-              _events[eventName]!
-                  .where((element) => element.caller == listener));
-          _events[eventName]!
-              .removeWhere((element) => element.caller == listener);
-        } catch (_) {}
+        tryEmit('removeListener',
+            _events[eventName]!.where((element) => element.caller == listener));
+        //var nEvents = _events[eventName];
+        //nEvents!.removeWhere((element) => element.caller == listener);
+        //_events[eventName] = nEvents;
+        _events[eventName]!
+            .removeWhere((element) => element.caller == listener);
       } else {
         throw ListenerNotFound();
       }
@@ -103,9 +96,7 @@ class EventListener {
           listener.caller(argument);
           if (listener.type == ListenerTypes.once) {
             removeEventListener(eventName, listener.caller);
-            try {
-              emit('removeListener', MapEntry(eventName, listener));
-            } catch (_) {}
+            tryEmit('removeListener', MapEntry(eventName, listener));
           }
         });
       } else {
@@ -124,9 +115,7 @@ class EventListener {
           listener.caller(argument);
           if (listener.type == ListenerTypes.once) {
             removeEventListener(eventName, listener.caller);
-            try {
-              emit('removeListener', MapEntry(eventName, listener));
-            } catch (_) {}
+            tryEmit('removeListener', MapEntry(eventName, listener));
           }
         });
         return true;
