@@ -53,5 +53,16 @@ void main() {
         eventListener.on('anEvent', (e) {});
       }, returnsNormally);
     });
+
+    test(
+        'Removing event listener and trying to call again will throw NoListener',
+        () {
+      var willBeDeleted = (e) {};
+      eventListener.on('deleteCheck', willBeDeleted);
+      expect(() {
+        eventListener.removeEventListener('deleteCheck', willBeDeleted);
+        eventListener.emit('deleteCheck', test);
+      }, throwsA(isA<NoListener>()));
+    });
   });
 }
