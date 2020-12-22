@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 Future<void> main() async {
   var downloadEmitter = EventListener();
   var fileToDownload =
-      'http://ipv4.download.thinkbroadband.com/20MB.zip'; //Test file
+      'http://ipv4.download.thinkbroadband.com/5MB.zip'; //Test file
 
   final client = http.Client();
   var response = client.send(http.Request('GET', Uri.parse(fileToDownload)));
