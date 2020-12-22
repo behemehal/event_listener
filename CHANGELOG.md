@@ -10,3 +10,7 @@
 
 - Add tryEmit nullsafe function
 
+## 0.1.4
+
+- Clean code, fix removeEventListener bug
+- Add test for removeEventListener

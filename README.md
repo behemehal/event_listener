@@ -11,7 +11,7 @@ NodeJS like Event Listener library for dart!
 ```dart
 import 'package:event_listener/event_listener.dart';
 
-main() {
+void main() {
   var eventListener = new EventListener();
 
   eventListener.on('log', (String message) {
@@ -27,7 +27,7 @@ main() {
 ```dart
 import 'package:event_listener/event_listener.dart';
 
-main() {
+void main() {
   var eventListener = new EventListener();
 
   //This event created by package called every time when you assign new listener to event
@@ -53,7 +53,7 @@ main() {
 ```dart
 import 'package:event_listener/event_listener.dart';
 
-main() {
+void main() {
   var eventListener = new EventListener();
 
   //This event created by package called every time when you remove a listener from event
@@ -66,7 +66,7 @@ main() {
     Deleted event caller: closure (String message) =>
   */
 
-  var logMe = (String message) {
+  var logMe = (message) {
     print("A last log: " + message);
   }
   //A last log: from me
@@ -82,7 +82,7 @@ main() {
 ```dart
 import 'package:event_listener/event_listener.dart';
 
-main() {
+void main() {
   var eventListener = new EventListener();
 
   var logMe = (String message) {
