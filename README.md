@@ -1,6 +1,7 @@
 # EventListener
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](/LICENSE)
 [![Pub](https://img.shields.io/pub/v/event_listener.svg)](https://pub.dartlang.org/packages/event_listener)
+[![Build Status](https://travis-ci.com/behemehal/event_listener.svg?branch=main)](https://travis-ci.com/behemehal/event_listener)
 
 NodeJS like Event Listener library for dart! 
 
