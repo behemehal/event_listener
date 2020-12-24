@@ -1,5 +1,10 @@
 language: dart
 dart:
-- "2.12.0-0"
+- "2.12.0"
 dart_task:
   - test
+deploy:
+  provider: script
+  script: ./tool/publish.sh
+  on:
+    branch: main
