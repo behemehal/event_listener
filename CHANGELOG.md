@@ -14,3 +14,6 @@
 
 - Clean code, fix removeEventListener bug
 - Add test for removeEventListener
+
+## 0.1.5
+- Remove download example, http does not support null safety

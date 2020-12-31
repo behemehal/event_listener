@@ -1,6 +1,6 @@
 language: dart
 dart:
-- "2.12.0-50.0.dev"
+- "dev/release/2.12.0-133.0.dev"
 dart_task:
   - test
 deploy:
