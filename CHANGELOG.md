@@ -17,3 +17,6 @@
 
 ## 0.1.5
 - Remove download example, http does not support null safety
+
+## 0.1.6
+- Enable null-safety again

@@ -4,7 +4,7 @@ import 'package:event_listener/exceptions.dart';
 import 'package:test/test.dart';
 
 void main() {
-  late EventListener eventListener;
+  EventListener eventListener;
   var deleteableEvent = (e) {};
 
   setUp(() {

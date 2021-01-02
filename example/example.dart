@@ -1,20 +1,6 @@
-// @dart=2.9
-import 'package:event_listener/event_listener.dart';
-
-void main() {
-  var downloadEmitter = EventListener();
-  var logger = (percent) {
-    print('Percent: ${percent}%');
-  };
-
-  downloadEmitter.on('download', logger);
-  downloadEmitter.emit('download', (275 / 1000 * 100).floor());
-}
-
-
-/*
-Until http became null safety
+import '../lib/event_listener.dart';
 import 'package:http/http.dart' as http;
+
 Future<void> main() async {
   var downloadEmitter = EventListener();
   var fileToDownload =
@@ -44,4 +30,3 @@ Future<void> main() async {
     });
   });
 }
-*/
