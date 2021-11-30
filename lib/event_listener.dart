@@ -26,8 +26,8 @@ class EventListener {
   //Calls function when event occurs
   void on(String eventName, void Function(dynamic argument) listener) {
     if (_events[eventName] == null) _events[eventName] = [];
-    if (_maxListeners == 0 || _events[eventName].length < _maxListeners) {
-      _events[eventName].add(Listener(ListenerTypes.on, listener));
+    if (_maxListeners == 0 || _events[eventName]!.length < _maxListeners) {
+      _events[eventName]!.add(Listener(ListenerTypes.on, listener));
       tryEmit('newListener', MapEntry(eventName, _events[eventName]));
     } else {
       throw MaximumListenerOverflow();
@@ -37,8 +37,8 @@ class EventListener {
   //Calls function once when event occurs
   void once(String eventName, void Function(dynamic argument) listener) {
     if (_events[eventName] == null) _events[eventName] = [];
-    if (_maxListeners == 0 || _events[eventName].length < _maxListeners) {
-      _events[eventName].add(Listener(ListenerTypes.once, listener));
+    if (_maxListeners == 0 || _events[eventName]!.length < _maxListeners) {
+      _events[eventName]!.add(Listener(ListenerTypes.once, listener));
       tryEmit('newListener', MapEntry(eventName, _events[eventName]));
     } else {
       throw MaximumListenerOverflow();
@@ -54,7 +54,7 @@ class EventListener {
   ///Get all existent listeners of event
   List<void Function(dynamic argument)> listeners(String eventName) {
     if (_events[eventName] != null) {
-      return _events[eventName].map((e) => e.caller) as List<void Function(dynamic)>;
+      return _events[eventName]!.map((e) => e.caller) as List<void Function(dynamic)>;
     } else {
       throw EventNotFound();
     }
@@ -72,13 +72,13 @@ class EventListener {
   void removeEventListener(
       String eventName, void Function(dynamic argument) listener) {
     if (_events[eventName] != null) {
-      if (_events[eventName].map((e) => e.caller).contains(listener)) {
+      if (_events[eventName]!.map((e) => e.caller).contains(listener)) {
         tryEmit('removeListener',
-            _events[eventName].where((element) => element.caller == listener));
+            _events[eventName]!.where((element) => element.caller == listener));
         //var nEvents = _events[eventName];
         //nEvents!.removeWhere((element) => element.caller == listener);
         //_events[eventName] = nEvents;
-        _events[eventName].removeWhere((element) => element.caller == listener);
+        _events[eventName]!.removeWhere((element) => element.caller == listener);
       } else {
         throw ListenerNotFound();
       }
@@ -90,8 +90,8 @@ class EventListener {
   ///Emits to every listener of event
   void emit(String eventName, dynamic argument) {
     if (_events[eventName] != null) {
-      if (_events[eventName].isNotEmpty) {
-        _events[eventName].forEach((listener) {
+      if (_events[eventName]!.isNotEmpty) {
+        _events[eventName]!.forEach((listener) {
           listener.caller(argument);
           if (listener.type == ListenerTypes.once) {
             removeEventListener(eventName, listener.caller);
@@ -107,10 +107,10 @@ class EventListener {
   }
 
   ///Emits to every listener of event returns null if failed to emit
-  bool tryEmit(String eventName, dynamic argument) {
+  bool? tryEmit(String eventName, dynamic argument) {
     if (_events[eventName] != null) {
-      if (_events[eventName].isNotEmpty) {
-        _events[eventName].forEach((listener) {
+      if (_events[eventName]!.isNotEmpty) {
+        _events[eventName]!.forEach((listener) {
           listener.caller(argument);
           if (listener.type == ListenerTypes.once) {
             removeEventListener(eventName, listener.caller);

@@ -1,4 +1,4 @@
-import '../lib/event_listener.dart';
+import 'package:event_listener/event_listener.dart';
 import 'package:http/http.dart' as http;
 
 Future<void> main() async {
@@ -11,7 +11,7 @@ Future<void> main() async {
   var downloaded = 0;
 
   var logger = (percent) {
-    print('Percent: ${percent}%');
+    print('Percent: $percent%');
   };
 
   downloadEmitter.on('download', logger);
@@ -19,11 +19,11 @@ Future<void> main() async {
   response.asStream().listen((http.StreamedResponse r) {
     r.stream.listen((List<int> chunk) {
       downloadEmitter.emit(
-          'download', (downloaded / r.contentLength * 100).floor());
+          'download', (downloaded / r.contentLength! * 100).floor());
       downloaded += chunk.length;
     }, onDone: () async {
       downloadEmitter.emit(
-          'download', (downloaded / r.contentLength * 100).floor());
+          'download', (downloaded / r.contentLength! * 100).floor());
       downloadEmitter.removeEventListener('download', logger);
       print('Download complete removed listener');
       return;
